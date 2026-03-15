@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Rachid Schultz Photography</title>
+  <meta name="description" content="Get in touch with Rachid Schultz." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Rachid Schultz</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Journal</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <div class="contact-wrap">
+      <h1>Get in touch.</h1>
+      <p class="contact-sub">Whether it's about a photo, a collaboration, a trip you want to hear more about — feel free to reach out. I read everything.</p>
+
+      <!-- This form uses Formspree (free). See README.txt for setup instructions.
+           Replace YOUR_FORM_ID below with your actual Formspree form ID. -->
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="What's this about?" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Send message</button>
+
+        <p id="form-success" style="display:none; margin-top:1.5rem; font-size:0.83rem; color:#6b6560;">
+          Thanks — your message was sent. I'll be in touch soon.
+        </p>
+        <p id="form-error" style="display:none; margin-top:1.5rem; font-size:0.83rem; color:#a05040;">
+          Something went wrong. Try emailing me directly below.
+        </p>
+
+      </form>
+
+      <div class="contact-email">
+        Or email directly: <a href="mailto:hello@rachidschultz.com">hello@rachidschultz.com</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">Rachid Schultz Photography</div>
+    <div class="footer-copy">© 2026 Rachid Schultz &nbsp;·&nbsp; All rights reserved</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = form.querySelector('.form-submit');
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.reset();
+            document.getElementById('form-success').style.display = 'block';
+            btn.style.display = 'none';
+          } else {
+            throw new Error();
+          }
+        } catch {
+          document.getElementById('form-error').style.display = 'block';
+          btn.textContent = 'Send message';
+          btn.disabled = false;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

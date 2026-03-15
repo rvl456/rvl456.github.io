@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Rachid Schultz Photography</title>
+  <meta name="description" content="Photo gallery — Rachid Schultz Photography." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(18,16,14,0.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 1px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.8rem;
+      cursor: pointer;
+      font-weight: 300;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-placeholder {
+      width: 320px;
+      height: 240px;
+      background: #2a2725;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      font-family: 'Jost', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Rachid Schultz</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Journal</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <div class="gallery-intro">
+      <h1>Gallery</h1>
+      <p>A selection of photographs from the field.</p>
+    </div>
+
+    <div class="gallery-grid">
+
+      <!-- To add a real photo, replace the inner div with:
+           <img src="images/gallery/photo1.jpg" alt="Description of photo" />
+           and remove the class from the outer div (keep gallery-item) -->
+
+      <div class="gallery-item g1" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 1</div>
+      </div>
+      <div class="gallery-item g2" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 2</div>
+      </div>
+      <div class="gallery-item g3" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 3</div>
+      </div>
+      <div class="gallery-item g4" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 4</div>
+      </div>
+      <div class="gallery-item g5" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 5</div>
+      </div>
+      <div class="gallery-item g6" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 6</div>
+      </div>
+      <div class="gallery-item g7" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 7</div>
+      </div>
+      <div class="gallery-item g8" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 8</div>
+      </div>
+      <div class="gallery-item g9" onclick="openLightbox(this)">
+        <div class="gallery-placeholder">Photo 9</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <div class="lightbox-placeholder" id="lightbox-content">Click a photo to enlarge</div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Rachid Schultz Photography</div>
+    <div class="footer-copy">© 2026 Rachid Schultz &nbsp;·&nbsp; All rights reserved</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      const lb = document.getElementById('lightbox');
+      const content = document.getElementById('lightbox-content');
+      lb.classList.add('open');
+      if (img) {
+        content.outerHTML = '<img class="lightbox-img" id="lightbox-content" src="' + img.src + '" alt="' + img.alt + '" />';
+      }
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
